@@ -341,7 +341,7 @@ fi
 export LDFLAGS+=" -L${ANDROID_NDK_ROOT}/platforms/android-${API}/arch-$(get_toolchain_arch)/usr/lib"
 
 # ALWAYS BUILD SHARED LIBRARIES
-BUILD_LIBRARY_OPTIONS="--disable-static --enable-shared"
+BUILD_LIBRARY_OPTIONS="--enable-static --disable-shared"
 
 # OPTIMIZE FOR SPEED INSTEAD OF SIZE
 if [[ -z ${FFMPEG_KIT_OPTIMIZED_FOR_SPEED} ]]; then

@@ -60,8 +60,9 @@ git checkout "${BASEDIR}"/src/"${LIB_NAME}"/build/make/configure.sh 1>>"${BASEDI
   --enable-runtime-cpu-detect \
   --enable-vp9-highbitdepth \
   ${ASM_OPTIONS} \
-  --enable-vp8 \
-  --enable-vp9 \
+  --disable-vp8 \
+  --disable-vp9-decoder \
+  --enable-vp9-encoder \
   --enable-multithread \
   --enable-spatial-resampling \
   --enable-small \
