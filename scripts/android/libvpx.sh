@@ -54,8 +54,9 @@ overwrite_file "${BASEDIR}"/tools/patch/make/libvpx/configure.sh "${BASEDIR}"/sr
   --enable-better-hw-compatibility \
   --enable-runtime-cpu-detect \
   ${ASM_OPTIONS} \
-  --enable-vp8 \
-  --enable-vp9 \
+  --disable-vp8 \
+  --disable-vp9-decoder \
+  --enable-vp9-encoder \
   --enable-multithread \
   --enable-spatial-resampling \
   --enable-small \

@@ -410,7 +410,7 @@ if [ "$GPL_ENABLED" == "yes" ]; then
 fi
 
 # ALWAYS BUILD SHARED LIBRARIES
-BUILD_LIBRARY_OPTIONS="--enable-shared --disable-static --install-name-dir=@rpath"
+BUILD_LIBRARY_OPTIONS="--disable-shared --enable-static --install-name-dir=@rpath"
 
 # OPTIMIZE FOR SPEED INSTEAD OF SIZE
 if [[ -z ${FFMPEG_KIT_OPTIMIZED_FOR_SPEED} ]]; then
@@ -514,7 +514,23 @@ ${SED_INLINE} "s/\$version/$FFMPEG_VERSION/g" "${BASEDIR}"/src/"${LIB_NAME}"/ffb
   --enable-pic \
   --enable-inline-asm \
   --enable-optimizations \
-  --enable-swscale \
+  --disable-swscale \
+  --disable-avdevice \
+  --disable-avfilter \
+  --disable-protocols \
+  --disable-muxers \
+  --disable-demuxers \
+  --disable-encoders \
+  --disable-parsers \
+  --disable-decoders \
+  --disable-filters \
+  --disable-ffprobe \
+  --disable-bsfs \
+  --disable-indevs \
+  --disable-outdevs \
+  --enable-protocol=file \
+  --enable-decoder=h264,hevc \
+  --enable-demuxer=h264,hevc \
   ${BUILD_LIBRARY_OPTIONS} \
   --enable-pthreads \
   --disable-v4l2-m2m \
