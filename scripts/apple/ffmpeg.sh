@@ -517,6 +517,7 @@ ${SED_INLINE} "s/\$version/$FFMPEG_VERSION/g" "${BASEDIR}"/src/"${LIB_NAME}"/ffb
   --disable-swscale \
   --disable-avdevice \
   --disable-avfilter \
+  --disable-swresample \
   --disable-protocols \
   --disable-muxers \
   --disable-demuxers \
