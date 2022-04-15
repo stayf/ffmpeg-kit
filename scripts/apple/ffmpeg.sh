@@ -529,8 +529,7 @@ ${SED_INLINE} "s/\$version/$FFMPEG_VERSION/g" "${BASEDIR}"/src/"${LIB_NAME}"/ffb
   --disable-indevs \
   --disable-outdevs \
   --enable-protocol=file \
-  --enable-decoder=h264,hevc \
-  --enable-demuxer=h264,hevc \
+  --enable-demuxer=mp4,mov \
   ${BUILD_LIBRARY_OPTIONS} \
   --enable-pthreads \
   --disable-v4l2-m2m \
