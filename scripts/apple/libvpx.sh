@@ -11,7 +11,7 @@ armv7 | armv7s)
   # vpx_ports/arm_cpudetect.c:151:2: error: "--enable-runtime-cpu-detect selected, but no CPU detection method " "available for your platform. Reconfigure with --disable-runtime-cpu-detect."
 
   TARGET="$(get_target_cpu)-darwin-gcc"
-  ASM_OPTIONS="--disable-runtime-cpu-detect --enable-neon --enable-neon-asm"
+  ASM_OPTIONS="--disable-runtime-cpu-detect --enable-neon --enable-neon-asm --disable-neon-i8mm --disable-neon-dotprod"
   ;;
 arm64*)
   TARGET="arm64-darwin-gcc"
@@ -19,11 +19,11 @@ arm64*)
   # --enable-neon-asm option not added because it causes the following error
   # vpx_dsp/arm/intrapred_neon_asm.asm.S:653:26: error: vector register expected
   #    vst1.64
-  ASM_OPTIONS="--disable-runtime-cpu-detect --enable-neon"
+  ASM_OPTIONS="--disable-runtime-cpu-detect --enable-neon --disable-neon-i8mm --disable-neon-dotprod"
   ;;
 i386)
   TARGET="x86-iphonesimulator-gcc"
-  ASM_OPTIONS="--enable-runtime-cpu-detect --disable-avx512"
+  ASM_OPTIONS="--enable-runtime-cpu-detect --disable-avx512 --disable-neon-i8mm --disable-neon-dotprod"
   ;;
 x86-64*)
   if [[ ${ARCH} == "x86-64-mac-catalyst" ]]; then
@@ -35,7 +35,7 @@ x86-64*)
     # CUSTOMIZED LIBVPX BUILD SCRIPTS (FOR tvOS, macOS) USE BUILD FLAGS SET BY FFMPEG KIT
     TARGET="x86_64-iphonesimulator-gcc"
   fi
-  ASM_OPTIONS="--enable-runtime-cpu-detect --disable-avx512 --disable-sse --disable-sse2 --disable-mmx"
+  ASM_OPTIONS="--enable-runtime-cpu-detect --disable-avx512 --disable-sse --disable-sse2 --disable-mmx --disable-neon-i8mm --disable-neon-dotprod"
   ;;
 esac
 
