@@ -5,54 +5,25 @@ TARGET=""
 ASM_OPTIONS=""
 case ${ARCH} in
 armv7 | armv7s)
-
-  # note that --disable-runtime-cpu-detect is used for arm
-  # using --enable-runtime-cpu-detect cause the following error
-  # vpx_ports/arm_cpudetect.c:151:2: error: "--enable-runtime-cpu-detect selected, but no CPU detection method " "available for your platform. Reconfigure with --disable-runtime-cpu-detect."
-  # без --disable-neon-i8mm --disable-neon-dotprod --disable-sve --disable-sve2 не собирается проек, а без --disable-neon происходит краш при кодировании видео начиная с версии 1.14
   TARGET="$(get_target_cpu)-darwin-gcc"
-  ASM_OPTIONS="--disable-runtime-cpu-detect --disable-neon --enable-neon-asm --disable-neon-i8mm --disable-neon-dotprod --disable-sve --disable-sve2"
   ;;
 arm64*)
   TARGET="arm64-darwin-gcc"
-
-  # --enable-neon-asm option not added because it causes the following error
-  # vpx_dsp/arm/intrapred_neon_asm.asm.S:653:26: error: vector register expected
-  #    vst1.64
-  ASM_OPTIONS="--disable-runtime-cpu-detect --disable-neon --disable-neon-i8mm --disable-neon-dotprod --disable-sve --disable-sve2"
   ;;
 i386)
   TARGET="x86-iphonesimulator-gcc"
-  ASM_OPTIONS="--enable-runtime-cpu-detect --disable-avx512 --disable-neon --disable-neon-i8mm --disable-neon-dotprod --disable-sve --disable-sve2"
   ;;
 x86-64*)
   if [[ ${ARCH} == "x86-64-mac-catalyst" ]]; then
     TARGET="x86_64-macosx-gcc"
   else
-
-    # WORKAROUND TO USE A VALID TARGET FOR LIBVPX BUILD SCRIPTS
-    # HAS NO EFFECT ON THE OUTPUT
-    # CUSTOMIZED LIBVPX BUILD SCRIPTS (FOR tvOS, macOS) USE BUILD FLAGS SET BY FFMPEG KIT
     TARGET="x86_64-iphonesimulator-gcc"
   fi
-  ASM_OPTIONS="--enable-runtime-cpu-detect --disable-avx512 --disable-sse --disable-sse2 --disable-mmx --disable-neon --disable-neon-i8mm --disable-neon-dotprod --disable-sve --disable-sve2"
   ;;
 esac
 
 # ALWAYS CLEAN THE PREVIOUS BUILD
 make distclean 2>/dev/null 1>/dev/null
-
-# NOTE THAT RECONFIGURE IS NOT SUPPORTED
-
-# WORKAROUND TO FIX BUILD OPTIONS DEFINED IN configure.sh
-case ${ARCH} in
-x86-64-mac-catalyst)
-  overwrite_file "${BASEDIR}"/tools/patch/make/libvpx/configure.x86_64_mac_catalyst.sh "${BASEDIR}"/src/"${LIB_NAME}"/build/make/configure.sh || return 1
-  ;;
-*)
-  overwrite_file "${BASEDIR}"/tools/patch/make/libvpx/configure.sh "${BASEDIR}"/src/"${LIB_NAME}"/build/make/configure.sh || return 1
-  ;;
-esac
 
 ./configure \
   --prefix="${LIB_INSTALL_PREFIX}" \
@@ -66,6 +37,7 @@ esac
   --enable-pic \
   --enable-optimizations \
   --enable-better-hw-compatibility \
+  --enable-runtime-cpu-detect \
   --enable-vp9-highbitdepth \
   ${ASM_OPTIONS} \
   --disable-vp8 \

@@ -40,11 +40,6 @@ esac
 # ALWAYS CLEAN THE PREVIOUS BUILD
 make distclean 2>/dev/null 1>/dev/null
 
-# NOTE THAT RECONFIGURE IS NOT SUPPORTED
-
-# UNDO WORKAROUNDS
-git checkout "${BASEDIR}"/src/"${LIB_NAME}"/build/make/configure.sh 1>>"${BASEDIR}"/build.log 2>&1
-
 ./configure \
   --prefix="${LIB_INSTALL_PREFIX}" \
   --target="${TARGET_CPU}-android-gcc" \
