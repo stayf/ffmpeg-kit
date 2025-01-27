@@ -1072,7 +1072,7 @@ get_min_sdk_version() {
 }
 
 get_min_sdk_version_flag() {
-  echo "-DFFMPEG_KIT_MIN_SDK=\\\"$(get_min_sdk_version)\\\""
+  echo "-DFFMPEG_KIT_MIN_SDK='$(get_min_sdk_version)'"
 }
 
 get_sdk_path() {
