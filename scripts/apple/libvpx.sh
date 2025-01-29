@@ -9,6 +9,7 @@ armv7 | armv7s)
   ;;
 arm64*)
   TARGET="arm64-darwin-gcc"
+  ASM_OPTIONS="--disable-runtime-cpu-detect --enable-neon"
   ;;
 i386)
   TARGET="x86-iphonesimulator-gcc"
@@ -37,7 +38,6 @@ make distclean 2>/dev/null 1>/dev/null
   --enable-pic \
   --enable-optimizations \
   --enable-better-hw-compatibility \
-  --enable-runtime-cpu-detect \
   --enable-vp9-highbitdepth \
   ${ASM_OPTIONS} \
   --disable-vp8 \
